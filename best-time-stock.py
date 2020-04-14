@@ -9,9 +9,9 @@ def maxProfit(prices):
     """Input an array prices and find the max profit.
 
        For example:
-       >>> [7,1,5,3,6,4]
+       >>> maxProfit([7,1,5,3,6,4])
        7
-       >>> [1,2,3,4,5]
+       >>> maxProfit([1,2,3,4,5])
        4
     """
 
