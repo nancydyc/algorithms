@@ -32,15 +32,18 @@ def maxProfit(prices):
     profit = 0
     total_profit = 0
 
-    # for i in range(len(prices)-1):
-    #     if prices[i+1] >= prices[i]:
-    #         current_diff = price[i] - prices[i+1]
+    for i in range(len(prices)-1):
+        # print(i)
+        if prices[i+1] >= prices[i]:
+            current_diff = prices[i+1] - prices[i]
+            # print(current_diff)
 
-    #         if current_diff > profit:
-    #             profit = current_diff
-
-    #     else:
-    #         total_profit += profit
+            if current_diff >= profit:
+                profit = current_diff
+                total_profit += profit
+                # print(total_profit)
+        else:
+            profit = 0
 
     return total_profit
 
