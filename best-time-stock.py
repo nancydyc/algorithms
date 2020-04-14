@@ -13,6 +13,8 @@ def maxProfit(prices):
        7
        >>> maxProfit([1,2,3,4,5])
        4
+       >>> maxProfit([2,1,4,5,2,9,7])
+       11
     """
 
     # max profit = the sum of a pair of numbers' difference
@@ -38,7 +40,7 @@ def maxProfit(prices):
             current_diff = prices[i+1] - prices[i]
             # print(current_diff)
 
-            if current_diff >= profit:
+            if current_diff > 0:
                 profit = current_diff
                 total_profit += profit
                 # print(total_profit)
