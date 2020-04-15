@@ -12,3 +12,26 @@ def countElements(arr):
        >>> countElements([1,1,2,2])
        2
     """
+
+    # start count at 0
+    # check all the elements in the list
+    # if the element of el+1 is also in the list
+    # count add 1
+
+    count = 0
+
+    for el in arr:
+        ele = el + 1
+
+        if ele in arr:
+            count += 1
+
+    return count
+
+
+#######################################################
+if __name__ == "__main__":
+    import doctest
+
+    if doctest.testmod().failed == 0:
+        print("\n*** ALL TESTS PASSED. YOU CAUGHT ALL THE STRAY PARENS!\n")
