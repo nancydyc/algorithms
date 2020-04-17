@@ -20,6 +20,8 @@ def checkValidString(s):
        False
        >>> checkValidString("(((******))")
        True
+       >>> checkValidString("((()))()(())(*()()())**(())()()()()((*()*))((*()*)")
+       True
     """
 
     # check the string from the beginning
@@ -48,9 +50,15 @@ def checkValidString(s):
         left_par_num = 0
         right_par_num = 0
         star_num = 0
-        while lst and lst[0] == "(":
-            left_par_num += 1
-            lst.pop(0)
+
+        while lst and lst[0] != ")":
+            if lst[0] == "*":
+                star_num += 1
+                lst.pop(0)
+
+            else:
+                left_par_num += 1
+                lst.pop(0)
 
         while lst and lst[0] != "(":
             if lst[0] == "*":
