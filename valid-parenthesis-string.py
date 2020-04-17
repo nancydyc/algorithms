@@ -22,6 +22,8 @@ def checkValidString(s):
        True
        >>> checkValidString("((()))()(())(*()()())**(())()()()()((*()*))((*()*)")
        True
+       >>> checkValidString("(((()*())))((()(((()(()))()**(*)())))())()()*")
+       True
     """
 
     # check the string from the beginning
