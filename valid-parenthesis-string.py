@@ -1,4 +1,4 @@
-def checkValidString(str):
+def checkValidString(s):
     """Given a string containing only three types of characters: '(', ')' and '*',
 
        Any left parenthesis '(' must have a corresponding right parenthesis ')'.
@@ -33,6 +33,45 @@ def checkValidString(str):
     # if num < 0
     # - if num + star_num != 0, return false
     # - else, continue tracking till string ends, return True
+
+    if s == "" or s == "*":
+        return True
+
+    if s[0] == ")":
+        return False
+
+    lst = list(s)
+
+    while lst:
+        left_par_num = 0
+        right_par_num = 0
+        star_num = 0
+        while lst and lst[0] == "(":
+            left_par_num += 1
+            lst.pop(0)
+
+        while lst and lst[0] != "(":
+            if lst[0] == "*":
+                star_num += 1
+                lst.pop(0)
+
+            else:
+                right_par_num += 1
+                lst.pop(0)
+
+        if left_par_num - right_par_num > 0:
+            if left_par_num - right_par_num - star_num != 0:
+                return False
+
+        if left_par_num - right_par_num < 0:
+            if left_par_num + star_num - right_par_num != 0:
+                return False
+
+    return True
+
+
+
+
 
 
 
