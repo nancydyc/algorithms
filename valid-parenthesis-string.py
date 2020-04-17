@@ -18,6 +18,8 @@ def checkValidString(s):
        True
        >>> checkValidString("(*))((")
        False
+       >>> checkValidString("(((******))")
+       True
     """
 
     # check the string from the beginning
@@ -60,11 +62,11 @@ def checkValidString(s):
                 lst.pop(0)
 
         if left_par_num - right_par_num > 0:
-            if left_par_num - right_par_num - star_num != 0:
+            if left_par_num - right_par_num - star_num > 0:
                 return False
 
         if left_par_num - right_par_num < 0:
-            if left_par_num + star_num - right_par_num != 0:
+            if left_par_num + star_num - right_par_num < 0:
                 return False
 
     return True
