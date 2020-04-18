@@ -26,20 +26,6 @@ def checkValidString(s):
        True
     """
 
-    # check the string from the beginning
-    # record the num of "(" until next char is not "("
-    # if the next char is ")" or "*"
-    # count their number until next char is not ")" or "*"
-    # if left_par_num - right_par_num = 0,
-    # repeat the process until the string ends, return True
-    # if num is not 0, check if num < 0 or num > 0
-    # if num > 0
-    # - if num - star_num != 0, return false
-    # - else, keep tracking until the string ends, return True
-    # if num < 0
-    # - if num + star_num != 0, return false
-    # - else, continue tracking till string ends, return True
-
     if s == "" or s == "*":
         return True
 
@@ -47,37 +33,34 @@ def checkValidString(s):
         return False
 
     lst = list(s)
+    track_lst = []
+    star_lst = []
 
     while lst:
-        left_par_num = 0
-        right_par_num = 0
-        star_num = 0
+        char = lst.pop(0)
+        if char == '(':
+            track_lst.append(char)
 
-        while lst and lst[0] != ")":
-            if lst[0] == "*":
-                star_num += 1
-                lst.pop(0)
+        if char == '*':
+            star_lst.append(char)
 
-            else:
-                left_par_num += 1
-                lst.pop(0)
+        if char == ")":
+            if track_lst:
+                track_lst.pop()
 
-        while lst and lst[0] != "(":
-            if lst[0] == "*":
-                star_num += 1
-                lst.pop(0)
+            elif star_lst:
+                star_lst.pop()
 
             else:
-                right_par_num += 1
-                lst.pop(0)
-
-        if left_par_num - right_par_num > 0:
-            if left_par_num - right_par_num - star_num > 0:
                 return False
 
-        if left_par_num - right_par_num < 0:
-            if left_par_num + star_num - right_par_num < 0:
-                return False
+    while track_lst:
+        if star_lst == []:
+            return False
+
+        else:
+            star_lst.pop()
+            track_lst.pop()
 
     return True
 
