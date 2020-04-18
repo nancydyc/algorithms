@@ -24,6 +24,8 @@ def checkValidString(s):
        True
        >>> checkValidString("(((()*())))((()(((()(()))()**(*)())))())()()*")
        True
+       >>> checkValidString("(())((())()()(*)(*()(())())())()()((()())((()))(*")
+       False
     """
 
     if s == "" or s == "*":
