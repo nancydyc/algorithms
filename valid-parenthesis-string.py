@@ -40,29 +40,39 @@ def checkValidString(s):
 
     while lst:
         char = lst.pop(0)
-        if char == '(':
+        if char != ')':
             track_lst.append(char)
 
-        if char == '*':
-            star_lst.append(char)
-
-        if char == ")":
-            if track_lst:
-                track_lst.pop()
-
-            elif star_lst:
-                star_lst.pop()
-
-            else:
+        else:
+            if track_lst == []:
                 return False
 
+            else:
+                if '(' in track_lst:
+                    rev_lst = track_lst[::-1]
+
+                    rev_lst.remove('(')
+
+                    track_lst = rev_lst[::-1]
+
+                else:
+                    track_lst.pop()
+
     while track_lst:
-        if star_lst == []:
+        if '(' not in track_lst:
+
+            return True
+
+        last = track_lst.pop()
+
+        if last == '(' and star_lst == []:
             return False
+
+        if last == '*':
+            star_lst.append(last)
 
         else:
             star_lst.pop()
-            track_lst.pop()
 
     return True
 
