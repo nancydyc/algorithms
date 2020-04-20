@@ -34,6 +34,9 @@ def maxProfit(prices):
     profit = 0
     total_profit = 0
 
+    if len(prices) < 2:
+        raise ValueError('To have transactions, you need at least to have two prices.')
+
     for i in range(len(prices)-1):
         # print(i)
         if prices[i+1] >= prices[i]:
