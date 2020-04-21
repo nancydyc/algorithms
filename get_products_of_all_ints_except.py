@@ -6,8 +6,10 @@ def get_products_of_all_ints_except_at_index(integers):
        For example:
        >>> get_products_of_all_ints_except_at_index([1, 7, 3, 4])
        [84, 12, 28, 21]
+       >>> get_products_of_all_ints_except_at_index([1, 0, 3, 4])
+       [0, 12, 0, 0]
     """
-    # solution 1: using division
+    # solution 1: using division doesn't work for list containing 0
     # total = 1
 
     # for num in integers:
