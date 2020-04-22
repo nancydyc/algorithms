@@ -14,6 +14,9 @@ def check_order(take_out, dine_in, served):
 
        >>> check_order([1, 3, 5], [2, 4, 6], [1, 2, 3, 5, 4])
        False
+
+       >>> check_order([1, 3, 5], [2, 4, 6], [1, 2, 3, 5, 4, 7])
+       False
     """
 
     # This solution assumes that there's no repeat order number
