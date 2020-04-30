@@ -5,6 +5,8 @@ def max_duffel_bag_value(cakes, capacity):
        For example:
        >>> max_duffel_bag_value([(7, 160), (3, 90), (2, 15)], 20)
        555
+       >>> max_duffel_bag_value([(7, 210), (3, 90)], 20)
+       540
     """
 
     # add a cake then the current weight of the bag is added, so index increases
@@ -12,10 +14,8 @@ def max_duffel_bag_value(cakes, capacity):
     # if used another type of cake and reached the same new weight
     # the current value will be updated to new value if current value is less than the potential new vaule
 
-    # what if [(7, 210), (3, 90)]
-
     values = [i * 0 for i in range(capacity + 1) ]
-    # print(len(values))
+
     for cake in cakes:
 
         weight_in_bag = 0
@@ -28,8 +28,8 @@ def max_duffel_bag_value(cakes, capacity):
             #     print(current_value)
                 if new_value >= values[weight]:
                     values[weight] = new_value
-
-    return values[-1]
+    # print(values)
+    return max(values)
 
 
 
