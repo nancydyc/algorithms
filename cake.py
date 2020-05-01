@@ -11,6 +11,10 @@ def max_duffel_bag_value(cakes, capacity):
        0
        >>> max_duffel_bag_value([(0, 0), (3, 90)], 20)
        540
+       >>> max_duffel_bag_value([(0, 10), (3, 90)], 20)
+       inf
+       >>> max_duffel_bag_value([(40, 3000), (3, 90)], 20)
+       540
     """
 
     # add a cake then the current weight of the bag is added, so index increases
@@ -21,8 +25,11 @@ def max_duffel_bag_value(cakes, capacity):
     values = [i * 0 for i in range(capacity + 1) ]
 
     for cake in cakes:
-        if cake[0] == 0:
+        if cake[0] == 0 and cake[1] != 0:
+            return float('inf')
+        if cake[0] == 0 and cake[1] == 0:
             continue
+
         weight_in_bag = 0
         current_value = 0
         new_value = 0
