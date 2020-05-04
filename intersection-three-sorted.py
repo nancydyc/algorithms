@@ -16,26 +16,15 @@ def arraysIntersection(arr1, arr2, arr3):
             i += 1
             j += 1
             k += 1
+            continue
 
-        elif arr1[i] < arr2[j] and arr1[i] < arr3[k]:
+        if arr1[i] < arr2[j] or arr1[i] < arr3[k]:
             i += 1
 
-        elif arr1[i] > arr2[j] and arr3[k] > arr2[j]:
+        if arr1[i] > arr2[j] or arr3[k] > arr2[j]:
             j += 1
 
-        elif arr1[i] > arr3[k] and arr2[j] > arr3[k]:
-            k += 1
-
-        elif arr1[i] < arr3[k] and arr2[j] < arr3[k]:
-            i += 1
-            j += 1
-
-        elif arr1[i] < arr2[j] and arr3[k] < arr2[j]:
-            i += 1
-            k += 1
-
-        else: #arr2[j] < arr1[i] and arr3[k] < arr1[i]:
-            j += 1
+        if arr1[i] > arr3[k] or arr2[j] > arr3[k]:
             k += 1
 
     return intersection
