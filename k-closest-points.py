@@ -39,6 +39,7 @@ def kClosest(points, K):
 
 
     # Solution: quicksort -- Lomuto's partition
+
     # def distance(points, index):
     #     return points[index][0] ** 2 + points[index][1] ** 2
 
@@ -66,36 +67,44 @@ def kClosest(points, K):
 
 
     # Solution: quicksort Hoare's partition
-    def distance(points, index):
-        return points[index][0] ** 2 + points[index][1] ** 2
 
-    def helper(lst, start, end, p):
-        smaller = start - 1
-        bigger = end + 1
-        pivot = distance(lst, p)
-        while True:
-            smaller += 1
-            while distance(lst, smaller) < pivot:
-                smaller += 1
+    # def distance(points, index):
+    #     return points[index][0] ** 2 + points[index][1] ** 2
 
-            bigger -= 1
-            while distance(lst, bigger) > pivot:
-                bigger -= 1
+    # def helper(lst, start, end, p):
+    #     smaller = start - 1
+    #     bigger = end + 1
+    #     pivot = distance(lst, p)
+    #     while True:
+    #         smaller += 1
+    #         while distance(lst, smaller) < pivot:
+    #             smaller += 1
 
-            if smaller >= bigger:
-                return bigger
+    #         bigger -= 1
+    #         while distance(lst, bigger) > pivot:
+    #             bigger -= 1
 
-            lst[smaller], lst[bigger] = lst[bigger], lst[smaller]
+    #         if smaller >= bigger:
+    #             return bigger
 
-    def quicksort(lst, start, end):
-        if start < end:
-            p = random.randint(start, end)
-            partition_index = helper(lst, start, end, p)
-            quicksort(lst, start, partition_index)
-            quicksort(lst, partition_index + 1, end)
+    #         lst[smaller], lst[bigger] = lst[bigger], lst[smaller]
 
-    quicksort(points, 0, len(points) - 1)
+    # def quicksort(lst, start, end):
+    #     if start < end:
+    #         p = random.randint(start, end)
+    #         partition_index = helper(lst, start, end, p)
+    #         quicksort(lst, start, partition_index)
+    #         quicksort(lst, partition_index + 1, end)
 
+    # quicksort(points, 0, len(points) - 1)
+
+    # return points[:K]
+
+
+    # Solution Lambda
+
+    points.sort(key=lambda point: point[0] ** 2 + point[1] ** 2)
+    # print(points)
     return points[:K]
 
 
