@@ -69,17 +69,17 @@ def kClosest(points, K):
     def distance(points, index):
         return points[index][0] ** 2 + points[index][1] ** 2
 
-    def helper(lst, start, end):
+    def helper(lst, start, end, p):
         smaller = start - 1
         bigger = end + 1
-        p = random.randint(start, end)
+        pivot = distance(lst, p)
         while True:
             smaller += 1
-            while distance(lst, smaller) < distance(lst, p):
+            while distance(lst, smaller) < pivot:
                 smaller += 1
 
             bigger -= 1
-            while distance(lst, bigger) > distance(lst, p):
+            while distance(lst, bigger) > pivot:
                 bigger -= 1
 
             if smaller >= bigger:
@@ -89,9 +89,10 @@ def kClosest(points, K):
 
     def quicksort(lst, start, end):
         if start < end:
-            partition_index = helper(lst, start, end)
-            helper(lst, start, partition_index)
-            helper(lst, partition_index + 1, end)
+            p = random.randint(start, end)
+            partition_index = helper(lst, start, end, p)
+            quicksort(lst, start, partition_index)
+            quicksort(lst, partition_index + 1, end)
 
     quicksort(points, 0, len(points) - 1)
 
