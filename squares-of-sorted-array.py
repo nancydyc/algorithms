@@ -2,6 +2,12 @@ def sortedSquares(A):
     """For example:
        >>> sortedSquares([-2,-1,3])
        [1, 4, 9]
+
+       >>> sortedSquares([])
+       []
+
+       >>> sortedSquares([-2])
+       [4]
     """
 #         A.sort(key=lambda num: num ** 2)
 
