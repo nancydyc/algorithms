@@ -111,56 +111,76 @@ def isVAlidSudoku(board):
 
 
 # One Iteration O(n); O(2 * n) aux space
-    def repetition(count, i):
-        if ord(i) - ord('1') >= 0:
-            count[int(i) - 1] += 1
-        if max(count) > 1:
-            return True
+    # def repetition(count, i):
+    #     if ord(i) - ord('1') >= 0:
+    #         count[int(i) - 1] += 1
+    #     if max(count) > 1:
+    #         return True
 
-    def subboxes(count_box, r, b, s):
-        if r < 3:
-            if repetition(count_box[s], board[b][r]):
-                return True
-        elif r < 6:
-            if repetition(count_box[s+1], board[b][r]):
-                return True
-        else:
-            if repetition(count_box[s+2], board[b][r]):
-                return True
+    # def subboxes(count_box, r, b, s):
+    #     if r < 3:
+    #         if repetition(count_box[s], board[b][r]):
+    #             return True
+    #     elif r < 6:
+    #         if repetition(count_box[s+1], board[b][r]):
+    #             return True
+    #     else:
+    #         if repetition(count_box[s+2], board[b][r]):
+    #             return True
 
-    b = 0
-    count_col = [[0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9]
-    count_box = [[0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9]
-    while b < 9:
-        # print(b)
-        count_row = [0] * 9
-        r = 0
+    # b = 0
+    # count_col = [[0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9]
+    # count_box = [[0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9, [0] * 9]
+    # while b < 9:
+    #     # print(b)
+    #     count_row = [0] * 9
+    #     r = 0
 
-        while r < 9:
-            if repetition(count_row, board[b][r]):
-                return False
+    #     while r < 9:
+    #         if repetition(count_row, board[b][r]):
+    #             return False
 
-            if repetition(count_col[r], board[b][r]):
-                return False
+    #         if repetition(count_col[r], board[b][r]):
+    #             return False
 
-            if b < 3:
-                s = 0
-                if subboxes(count_box, r, b, s):
+    #         if b < 3:
+    #             s = 0
+    #             if subboxes(count_box, r, b, s):
+    #                 return False
+
+    #         elif b < 6:
+    #             s = 3
+    #             if subboxes(count_box, r, b, s):
+    #                 return False
+
+    #         else:
+    #             s = 6
+    #             if subboxes(count_box, r, b, s):
+    #                 return False
+
+    #         r += 1
+
+    #     b += 1
+
+    # return True
+# How add comments if the time is limited but I definitely know there's better solution to optimize it?
+
+
+# Solution: dict/set
+    rows = [{} for i in range(9)]
+    cols = [{} for i in range(9)]
+    boxes = [{} for i in range(9)]
+    for r in range(len(board)):
+        for c in range(len(board)):
+            target = board[r][c]
+            if target != '.':
+                box_idx = r // 3 * 3 + c // 3
+                rows[r][target] = rows[r].get(target, 0) + 1
+                cols[c][target] = cols[c].get(target, 0) + 1
+                boxes[box_idx][target] = boxes[box_idx].get(target, 0) + 1
+
+                if rows[r][tartget] > 1:
                     return False
-
-            elif b < 6:
-                s = 3
-                if subboxes(count_box, r, b, s):
-                    return False
-
-            else:
-                s = 6
-                if subboxes(count_box, r, b, s):
-                    return False
-
-            r += 1
-
-        b += 1
 
     return True
 
