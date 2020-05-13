@@ -44,25 +44,19 @@ def minMeetingRooms(intervals):
 # Solution: use priority queue / min heap
 
     intervals.sort(key=lambda si: si[0])
+    free_rooms = []
 
-    class MinHeap:
-        def __init__(self):
-            self.heap = []
-
-        def parent(self, i):
-            return (i-1) / 2
-
-        def insertKey(self, k):
-            heappush(self.heap, k)
-
-    min-heap = MinHeap()
-    for meeting in intervals:
-        min-heap.insertKey(meeting[1])
-
-
-
-
-
+    # use one free room for the first meeting
+    heappush(free_rooms, intervals[0][1])
+    # print(free_rooms)
+    for meeting in intervals[1:]:
+        if free_rooms[0] <= meeting[0]: # if ending earlier than start
+            heappop(free_rooms) # clear the earliest ending
+            # heappop remove the smallest item in heap
+        heappush(free_rooms, meeting[1]) # add the new ending time
+        # print(free_rooms)
+    return len(free_rooms)
+    # the left ending times are the numbers of rooms needed
 
 
 ############################################################################
