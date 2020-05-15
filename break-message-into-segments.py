@@ -40,7 +40,10 @@ def break_into_segments(message):
     # join the list of sub-messages into a string of multiple lines
     print('\n'.join(result))
 
-
+    # There's still space to improve:
+    # Can we avoid breaking at the middle of the word? I will implement it this weekend.
+    # You can check my github for the improvement of this problem this weekend at
+    # https://github.com/nancydyc/Code-Challenge/blob/master/break-message-into-segments.py
 
 
 ############################################################################
