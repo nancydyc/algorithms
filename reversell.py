@@ -44,11 +44,11 @@ def reverseList_v1(head):  # Recursive
     :type head: ListNode
     :rtype: ListNode
     """
-    if not head or not head.next: # when node is none
-        return head
+    if not head or not head.next: # when node is none (1 - 2 - 3 - 4 - 5)
+        return head # 5 - none
     p = self.reverseList(head.next)
-    head.next.next = head # head.next = current -> current.next = head
-    head.next = None # tail is none
+    head.next.next = head # the outer layer head node (4 - 3 - 2 - 1)
+    head.next = None # end one layer of call stack
     return p
 
 
