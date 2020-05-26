@@ -68,5 +68,8 @@ if __name__ == "__main__":
         print("\n*** ALL TESTS PASSED. YOU DID AN EXCELLENT JOB!\n")
 
 
+############################################################################
 
+# [3,5,1,2] -> 1, 2, 3, 5
 
+# from queue import PriorityQueue
