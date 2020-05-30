@@ -26,6 +26,8 @@ def check_superbalanced(tree):
         5. if there's no node at that level, return True => nodes at the same level has no children nodes or their children nodes has no children
 
     """
+    if tree is None:
+        return True
 
     q = []
     q.append(tree)
@@ -48,7 +50,45 @@ def check_superbalanced(tree):
     return True
 
 
+# Alternative solution: use depth [] to track if leave nodes are at different levels
+# if there're three different levels, return False
+# or if the depth of the two levels are more than 1 apart.
+
+def check_superbalanced_tree(tree):
+    if tree is None:
+        return True
+
+    q = []
+    depths = []
+    q.append((tree, 0))
+
+    while q:
+        node, depth = q.pop()
+        # print(node.value, depth)
+
+        if not node.left and not node.right:
+            if depth not in depths:
+                depths.append(depth)
+                # print(f'check balance {depths}')
+
+                if len(depths) > 2:
+                    return False
+
+                if len(depths) == 2 and abs(depths[0] - depths[1]) > 1:
+                    return False
+
+        else:
+            if node.left:
+                q.append((node.left, depth + 1))
+
+            if node.right:
+                q.append((node.right, depth + 1))
+
+    return True
+
+
 a = BinaryTreeNode('1')
+# a: return True if there's only one node or no node
 b = a.insert_left('2')
 c = a.insert_right('3')
 # a--c: return True
@@ -56,9 +96,4 @@ d = b.insert_left('4')
 e = b.insert_right('5')
 f = d.insert_left('6')
 # a--f: return False
-
-
-
-
-
 
