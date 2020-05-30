@@ -58,12 +58,12 @@ def check_superbalanced_tree(tree):
     if tree is None:
         return True
 
-    q = []
+    s = []
     depths = []
-    q.append((tree, 0))
+    s.append((tree, 0))
 
-    while q:
-        node, depth = q.pop()
+    while s:
+        node, depth = s.pop()
         # print(node.value, depth)
 
         if not node.left and not node.right:
@@ -79,10 +79,10 @@ def check_superbalanced_tree(tree):
 
         else:
             if node.left:
-                q.append((node.left, depth + 1))
+                s.append((node.left, depth + 1))
 
             if node.right:
-                q.append((node.right, depth + 1))
+                s.append((node.right, depth + 1))
 
     return True
 
