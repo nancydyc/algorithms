@@ -89,7 +89,52 @@ def pre_order(tree):
     return visit_order
 
 
+# define in-order traversal
+def in_order(tree):
+    visit_order = []
+
+    root = tree.get_root()
+
+    def traverse(node):
+        if node:
+            # visit left node
+            traverse(node.get_left_child())
+
+            # visit node
+            visit_order.append(node.value)
+
+            # visit right node
+            traverse(node.get_right_child())
+
+    traverse(root)
+
+    return visit_order
+
+
+# define post_order traversal
+def post_order(tree):
+    visit_order = []
+
+    root = tree.get_root()
+
+    def traverse(node):
+        if node:
+            traverse(node.get_left_child())
+
+            traverse(node.get_right_child())
+
+            visit_order.append(node.value)
+
+    traverse(root)
+
+    return visit_order
+
+
 tree = Tree("apple")
 tree.get_root().set_left_child(Node("banana"))
 tree.get_root().set_right_child(Node("cherry"))
 tree.get_root().get_left_child().set_left_child(Node("dates"))
+
+pre_order(tree)
+in_order(tree)
+post_order(tree)
