@@ -51,7 +51,7 @@
 
 
 def checkItem(x,y, arr, island_number):
-  if x >= len(arr) or x < 0 or y < 0 or y >= len(arr) or arr[y][x] != 1 :
+  if x >= len(arr) or x < 0 or y < 0 or y >= len(arr[0]) or arr[y][x] != 1 :
     return
 
   if arr[y][x] == 1:
