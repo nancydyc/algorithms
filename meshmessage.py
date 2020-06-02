@@ -22,16 +22,23 @@ def shortest_route(network, sender, recipient):
         For example:
         >>> shortest_route({ 'Min'    : ['William', 'Jayden', 'Omar'], 'William': ['Min', 'Noam'], 'Jayden' : ['Min', 'Amelia', 'Ren', 'Noam'], 'Ren'    : ['Jayden', 'Omar'], 'Amelia' : ['Jayden', 'Adam', 'Miguel'], 'Adam'   : ['Amelia', 'Miguel', 'Sofia', 'Lucas'], 'Miguel' : ['Amelia', 'Adam', 'Liam', 'Nathan'], 'Noam'   : ['Nathan', 'Jayden', 'William'], 'Omar'   : ['Ren', 'Min', 'Scott']}, 'Jayden', 'Adam')
         ['Jayden', 'Amelia', 'Adam']
-
+        >>> shortest_route({ 'Min'    : ['William', 'Jayden', 'Omar'], 'William': ['Min', 'Noam'], 'Jayden' : ['Min', 'Amelia', 'Ren', 'Noam'], 'Ren'    : ['Jayden', 'Omar'], 'Amelia' : ['Jayden', 'Adam', 'Miguel'], 'Adam'   : ['Amelia', 'Miguel', 'Sofia', 'Lucas'], 'Miguel' : ['Amelia', 'Adam', 'Liam', 'Nathan'], 'Noam'   : ['Nathan', 'Jayden', 'William'], 'Omar'   : ['Ren', 'Min', 'Scott']}, 'Jayden', 'Jayden')
+        ['Jayden']
+        >>> shortest_route({ 'Min'    : ['William', 'Jayden', 'Omar'], 'William': ['Min', 'Noam'], 'Jayden' : ['Min', 'Amelia', 'Ren', 'Noam'], 'Ren'    : ['Jayden', 'Omar'], 'Amelia' : ['Jayden', 'Adam', 'Miguel'], 'Adam'   : ['Amelia', 'Miguel', 'Sofia', 'Lucas'], 'Miguel' : ['Amelia', 'Adam', 'Liam', 'Nathan'], 'Noam'   : ['Nathan', 'Jayden', 'William'], 'Omar'   : ['Ren', 'Min', 'Scott']}, 'Jayden', 'Yichen')
+        []
+        >>> shortest_route({ 'Min'    : ['William', 'Jayden', 'Omar'], 'William': ['Min', 'Noam'], 'Jayden' : ['Min', 'Amelia', 'Ren', 'Noam'], 'Ren'    : ['Jayden', 'Omar'], 'Amelia' : ['Jayden', 'Adam', 'Miguel'], 'Adam'   : ['Amelia', 'Miguel', 'Sofia', 'Lucas'], 'Miguel' : ['Amelia', 'Adam', 'Liam', 'Nathan'], 'Noam'   : ['Nathan', 'Jayden', 'William'], 'Omar'   : ['Ren', 'Min', 'Scott']}, 'Jayden', 'Scott')
+        ['Jayden', 'Min', 'Omar', 'Scott']
     """
 
     # locate the sender in the dictionary
-    # when there is a recipient list, move to the next step
-    # otherwise, return empty route list
+    # if the sender is the recipient, return itself
+    # if the sender doesn't exist in this network, return empty route
     if sender not in network:
-        return route
+        return []
 
-    # route = []
+    if sender == recipient:
+        return [recipient]
+
     q = []
     q.append((sender, sender))
 
@@ -41,19 +48,27 @@ def shortest_route(network, sender, recipient):
     while q:
         next_sender, route = q.pop(0)
 
-        # if match, add the recipient to the route list and return route
-        # if not, make it next sender
+        # if reaching an end of the network, network breaks and we can't find the person, return empty route
+        if next_sender not in network:
+            return []
+
+        # if find the target recipient, add the recipient to the route and return route
+        # if not, make it next sender and add to the route as well
         for person in network[next_sender]:
             if person not in seen:
                 seen.add(person)
 
                 if person == recipient:
-                    route += recipient
+                    route += ',' + recipient
                     return route.split(',')
 
-                q.append((person, route + ',' + person + ','))
+                q.append((person, route + ',' + person))
+                # print(q)
 
-    return route
+    return []
+
+# runtime and space: worst case is traverse the full size of the tree/the whole network
+# O(n * m): n is the number of people, m is the connection among them
 
 
 ############################################################################
