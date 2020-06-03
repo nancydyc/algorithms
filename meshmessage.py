@@ -50,39 +50,34 @@ def shortest_route(network, sender, recipient):
     # locate the sender in the dictionary
     # if the sender is the recipient, return itself
     # if the sender doesn't exist in this network, return empty route
-    # if sender not in network:
-    #     raise Exception(f'{sender} is not in the network.')
+    if sender not in network:
+        return []
+        # raise Exception(f'{sender} is not in the network.')
 
-    # if sender == recipient:
-    #     return [recipient]
+    if sender == recipient:
+        return [recipient]
 
-    # q = []
-    # q.append((sender, sender))
+    q = []
+    q.append((sender, sender))
 
-    # seen = set()
-    # seen.add(sender)
+    seen = set()
+    seen.add(sender)
 
-    # while q:
-    #     next_sender, route = q.pop(0)
+    while q:
+        next_sender, route = q.pop(0)
+        # if find the target recipient, add the recipient to the route and return route
+        # if not, make it next sender and add to the route as well
+        if next_sender == recipient:
+            return route.split(',')
+        # if reaching an end of the network, network breaks and we can't find the person, return empty route
+        if next_sender in network:
+            for person in network[next_sender]:
+                if person not in seen:
+                    seen.add(person)
+                    q.append((person, route + ',' + person))
+                    # print(q)
 
-    #     # if reaching an end of the network, network breaks and we can't find the person, return empty route
-    #     if next_sender not in network:
-    #         return []
-
-    #     # if find the target recipient, add the recipient to the route and return route
-    #     # if not, make it next sender and add to the route as well
-    #     for person in network[next_sender]:
-    #         if person not in seen:
-    #             seen.add(person)
-
-    #             if person == recipient:
-    #                 route += ',' + recipient
-    #                 return route.split(',')
-
-    #             q.append((person, route + ',' + person))
-    #             # print(q)
-
-    # return []
+    return []
 
 # runtime and space: worst case is traverse the full size of the tree/the whole network
 # O(n * m): n is the number of people, m is the connection among them
