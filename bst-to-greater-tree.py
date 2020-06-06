@@ -1,28 +1,3 @@
-# def right_total_value(node):
-    # total = 0
-    # nodes = [root]
-    # # print(nodes)
-    # while nodes:
-    #     cur = nodes.pop()
-    #     # print(cur.val)
-
-    #     if cur != node and cur.val > node.val:
-    #         # print(total)
-    #         # return total + cur.val
-    #         total += cur.val
-
-    #     if cur.right and cur.right.val > node.val:
-    #         nodes.append(cur.right)
-
-    #     if cur.left and cur.left.val > node.val:
-    #         nodes.append(cur.left)
-
-    # return total + node.val
-
-# current_total = right_total_value(root)
-# print('root\'s new value', current_total)
-
-
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -60,6 +35,29 @@ class Solution:
             self.convertBST(root.left)
 
         return root
+
+# Alternative solution: Iterative solution using Stack
+def convert_bst(root):
+    total = 0
+    node = root
+    s = []
+    while s or node:
+        # move to the rightmost node
+        while node:
+            s.append(node)
+            node = node.right
+
+        cur_node = s.pop()
+        # track the total value
+        total += cur_node.val
+        # convert the value
+        cur_node.val = total
+        # check if a left node exists;
+        # if stack becomes empty and no more left node in the tree, stop the loop
+        node = cur_node.left
+
+    return root
+
 
 b = TreeNode(2)
 c = TreeNode(13)
