@@ -136,8 +136,39 @@ class Tree():
     define insert here (can use recursion)
     try one or both ways
     """
+    def insert_recursively(self, new_node, node):
+        num = self.compare(node, new_node)
+        if num == 0:
+            node.set_value(new_node.value)
+            return
+
+        elif num == 1:
+            if not node.right:
+                return node.set_right_child(new_node)
+            else:
+                self.insert_recursively(new_node, node.right)
+
+        else:
+            if not node.left:
+                return node.set_left_child(new_node)
+            else:
+                self.insert_recursively(new_node, node.left)
+
     def insert_with_recursion(self,value):
-        pass
+        # compare
+        # if value is greater than current node, check if right has child
+        # if value is less than current node, check if left has child
+        # when no child or equal, set the value and return
+
+        node = self.get_root()
+        new_node = Node(value)
+
+        if not node:
+            self.root = new_node
+            return
+
+        self.insert_recursively(new_node, node)
+
 
 
     def __repr__(self):
@@ -198,3 +229,10 @@ tree.insert_with_recursion(4)
 tree.insert_with_recursion(2)
 tree.insert_with_recursion(5) # insert duplicate
 print(tree)
+
+# Tree
+
+# Node(Node(5))
+# Node(4) | Node(6)
+# Node(2) | <empty> | <empty> | <empty>
+# <empty> | <empty>
