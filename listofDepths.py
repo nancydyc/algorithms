@@ -5,6 +5,10 @@ class Node():
         self.right = right
         self.next = next
 
+class Tree():
+    def __init__(self, root):
+        self.root = root
+
 class LinkedList():
     def __init__(self):
         self.head = None
@@ -20,9 +24,9 @@ def create_lists_of_depths(node):
                 /   \    /
               a:2  b:4  c:6
 
-    [5]
-    [3, 7]
-    [2, 4, 6]
+    <5>
+    <3> --> <7>
+    <2> --> <4> --> <6>
 
     1. traverse in level order
     2. for each level node, add them to linkedlist, add the head of ll to result list
@@ -37,7 +41,7 @@ def create_lists_of_depths(node):
 
     while q:
         level_size = len(q)
-        ll = LinkedList() # not sure if it will create an empty ll every time
+        ll = LinkedList()
         for i in range(len(q)):
             cur = q.pop(0)
             print('current node', cur.val)
