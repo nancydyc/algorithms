@@ -5,7 +5,7 @@ def maxAreaofIsland(grid):
     4
     """
     def explore_island_area(r, c) :
-        print(f'row {r} col {c}')
+        # print(f'row {r} col {c}')
         if r >= len(grid) or r < 0 or c >= len(grid[0]) or c < 0 or grid[r][c] != 1:
             # print('area so far', area)
             return 0
