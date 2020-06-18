@@ -86,3 +86,6 @@ def is_bst(node):
             s.append((cur.right, cur.value, up))
 
     return True
+
+# runtime: O(n)
+# space: worst case is O(n) but best and average case if better than above
