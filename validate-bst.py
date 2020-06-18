@@ -71,4 +71,18 @@ D = C.insert_left(1)
 E = C.insert_right(10)
 
 
+def is_bst(node):
+    s = [(node, -float('inf'), float('inf'))]
+    while s:
+        cur, low, up = s.pop()
 
+        if cur.value < low or cur.value > up:
+            return False
+
+        if cur.left:
+            s.append((cur.left, low, cur.value))
+
+        if cur.right:
+            s.append((cur.right, cur.value, up))
+
+    return True
