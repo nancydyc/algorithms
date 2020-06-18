@@ -155,7 +155,7 @@ class Tree():
                 self.insert_recursively(new_node, node.left)
 
     def insert_with_recursion(self,value):
-        # compare
+        # compare (use above helper function)
         # if value is greater than current node, check if right has child
         # if value is less than current node, check if left has child
         # when no child or equal, set the value and return
