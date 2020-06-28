@@ -69,11 +69,12 @@ def making_changes(amount, lst):
     for coin in lst:
 
         for higher_value in range(coin, amount + 1):
-            print(coin, higher_value, ways)
+            # print(coin, higher_value)
             higher_value_remainder = higher_value - coin
             ways[higher_value] += (
                 ways[higher_value_remainder]
             )
+            print(ways)
 
     return ways[amount]
 
