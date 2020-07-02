@@ -1,5 +1,6 @@
 """
-Write an algo to find the "next" node of a given node in a bst. In order traversal. Assume each node has a link to its parent.
+Write an algo to find the "next" node of a given node in a bst.
+In order traversal. Assume each node has a link to its parent.
 
                  5
                /   \
@@ -8,45 +9,29 @@ Write an algo to find the "next" node of a given node in a bst. In order travers
           1     4
                / \
               3  4.5
-5 [1, 2, 4]
 
-given root = 5
-depth first search with left preference
-- recursive solution
-
-visited = [] // empty list that holds nodes already visited
-    - current = root
-    base case: (if current.left is None):
-    - return None
-    flow control
-    - current = current.left
-    if visited[-1].data is node.data:
-      return current node
-    - visited.append(current node)
-    - current = current.right
-
-return visited
-
-Call stack:
-5 r l
-2 r l
-1 None None
 
 runtime: O(n)
 space: O(n) n is the number of the nodes
 
-- find the node in the tree
-- return the next node
-
 Input: tree, node
 Output: next node
+
+-  if the node has a right node
+    - return its leftmost child of the node's right subtree
+-  if the node has no right node
+    - check if it's a left child of its parent node
+    - if true, return the parent node
+    - else, make the parent node current node
+        - compare with one-more-level-up parent node until meets the checking condition
+        - if given node is the rightmost node, return none
 
 """
 
 class Node():
-    """Node class"""
+    """ Node class, each node has a link to its parent node."""
 
-    def __init__(self, data, left = None, right = None, parent = None):
+    def __init__(self, data, left=None, right=None, parent=None):
         self.data = data
         self.left = left
         self.right = right
@@ -55,21 +40,32 @@ class Node():
     def __repr__(self):
         return f"<node| data: {self.data}, left: {self.left}, right: {self.right}>"
 
-def inorder(tree, node, visited = []):
-    """in order traversal of a tree given the root node"""
 
-    if tree is None:
+def leftmost_child(node):
+    """ Get the left most child node of the right subtree."""
+    if not node.left:
+        return node
+
+    res = leftmost_child(node.left)
+
+    return res
+
+
+def get_next_node(tree, node):
+    if not node or not tree:
         return
 
-    inorder(tree.left, node, visited)
+    if node.right:
+        return leftmost_child(node.right)
 
-    if visited and node.data == visited[-1].data:
-      return tree.data
+    cur = node
+    p = cur.parent
+    # print(p)
+    while p and (p.left != cur):
+        cur = node.parent
+        p = cur.parent
 
-    visited.append(tree)
-    inorder(tree.right, node, visited)
-
-    return visited
+    return p
 
 
 six = Node(6)
@@ -77,3 +73,9 @@ one = Node(1)
 four = Node(4)
 two = Node(2, one, four)
 root = Node(5, two, six)
+six.parent = root
+one.parent = two
+four.parent = two
+two.parent = root
+
+print(get_next_node(root, six))
