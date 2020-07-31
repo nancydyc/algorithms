@@ -51,31 +51,49 @@ def productExceptSelf(nums):
 
     """
 
-    output = [0 for i in range(len(nums))]
-    if nums.count(0) > 1:
-        return output
+    # Original solution
+    # output = [0 for i in range(len(nums))]
+    # if nums.count(0) > 1:
+    #     return output
 
-    if nums.count(0) == 1:
-        idx = nums.index(0)
-        total_except_zero = 1
-        for num in nums[:idx]:
-            total_except_zero *= num
+    # if nums.count(0) == 1:
+    #     idx = nums.index(0)
+    #     total_except_zero = 1
+    #     for num in nums[:idx]:
+    #         total_except_zero *= num
 
-        for num in nums[idx + 1:]:
-            total_except_zero *= num
+    #     for num in nums[idx + 1:]:
+    #         total_except_zero *= num
 
-        output[idx] = total_except_zero
-        return output
+    #     output[idx] = total_except_zero
+    #     return output
 
-    total = 1
-    for t in nums[1:]:
-        total *= t
-    output[0] = total
+    # total = 1
+    # for t in nums[1:]:
+    #     total *= t
+    # output[0] = total
 
-    for j in range(len(nums) - 1):
-        total *= nums[j]
-        total /= nums[j + 1]
-        output[j + 1] = int(total)
+    # for j in range(len(nums) - 1):
+    #     total *= nums[j]
+    #     total /= nums[j + 1]
+    #     output[j + 1] = int(total)
+
+    # return output
+
+    # Optimized solution: No division, runtime O(n), space O(1)
+    output = [1 for i in range(len(nums))]
+
+    left_total = 1
+    right_total = 1
+
+    for i in range(1, len(nums)):
+        left_total *= nums[i - 1]
+        output[i] *= left_total
+        # print('update left', output[i] )
+        right_total *= nums[-i]
+        output[-i-1] *= right_total
+        # print('update right', output[-i-1])
+        # print(output)
 
     return output
 
